@@ -3,13 +3,23 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, Polygon } from 'react-g
 
 const GraphMap = withScriptjs(
     withGoogleMap(props => {
-        const { polygons } = props
+        const { polygons, isMarkerShown } = props
         const center = polygons[0].coordinates[0]
         return (
             <GoogleMap defaultZoom={15} defaultCenter={{ lat: center.lat, lng: center.lng }}>
-                {props.isMarkerShown
+                {isMarkerShown && polygons
                     ? polygons.map((polygon, index) => {
                           return <Polygon key={`${polygon.name}i${index}`} path={polygon.coordinates} />
+                      })
+                    : null}
+
+                {isMarkerShown && polygons
+                    ? polygons.map(polygon => {
+                          return polygon.markers.map((marker, index) => {
+                              return (
+                                  <Marker key={`${polygon.name}mark${index}`} position={{ lat: marker.lat, lng: marker.lng }} />
+                              )
+                          })
                       })
                     : null}
             </GoogleMap>

@@ -66,6 +66,7 @@ class App extends Component {
                         containerElement={<div style={{ height: `100vh` }} />}
                         mapElement={<div style={{ height: `100%` }} />}
                         polygons={polygons}
+                        // markers={markers}
                     />
                 ) : null}
             </div>
