@@ -6,10 +6,16 @@ const GraphMap = withScriptjs(
         const { polygons, isMarkerShown } = props
         const center = polygons[0].coordinates[0]
         return (
-            <GoogleMap defaultZoom={15} defaultCenter={{ lat: center.lat, lng: center.lng }}>
+            <GoogleMap defaultZoom={15} defaultCenter={{ lat: center.lat, lng: center.lng }} mapTypeId={'satellite'}>
                 {isMarkerShown && polygons
                     ? polygons.map((polygon, index) => {
-                          return <Polygon key={`${polygon.name}i${index}`} path={polygon.coordinates} />
+                          return (
+                              <Polygon
+                                  key={`${polygon.name}i${index}`}
+                                  path={polygon.coordinates}
+                                  options={{ strokeOpacity: 0.8, strokeColor: "#2A2A57", fillColor:"#FFF"}}
+                              />
+                          )
                       })
                     : null}
 
@@ -17,7 +23,10 @@ const GraphMap = withScriptjs(
                     ? polygons.map(polygon => {
                           return polygon.markers.map((marker, index) => {
                               return (
-                                  <Marker key={`${polygon.name}mark${index}`} position={{ lat: marker.lat, lng: marker.lng }} />
+                                  <Marker
+                                      key={`${polygon.name}mark${index}`}
+                                      position={{ lat: marker.lat, lng: marker.lng }}
+                                  />
                               )
                           })
                       })
